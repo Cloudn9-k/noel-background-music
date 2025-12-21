@@ -1,0 +1,27 @@
+/* src/style.css */
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #161616;
+  touch-action: none; 
+}
+
+/* Quan trọng: Đảm bảo App div chiếm hết màn hình */
+#app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: block; /* Mặc định Vite hay để grid/flex center, cần sửa thành block */
+  position: relative;
+}
