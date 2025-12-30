@@ -9,7 +9,7 @@ const giftList = ref([
     id: 1,
     title: "Lời xin lỗi đáng iu",
     color: "#ef4444",
-    img: "public/hinh1.jpg", 
+    img: "/hinh1.jpg", 
     content: "Anh yêu em nhất trên đời!\nHộp quà đầu tiên là lời xin lỗi muốn gửi tới em vì ko đưa em kịp vào ngày Giáng Sinh.\nMong rằng em sẽ nhận lời xin lũi đáng iu của anh ạaaa ❤️",
     isRevealed: false
   },
@@ -17,7 +17,7 @@ const giftList = ref([
     id: 2,
     title: "Giáng Sinh & Năm Mới",
     color: "#22c55e", 
-    img: "public/hinh2.jpg", 
+    img: "/hinh2.jpg", 
     content: "Giáng Sinh này, cùng với năm mới,\nchúc em thật nhiều sức khoẻ, thật nhiều may mắn, và đón nhận tình iu của anh nhiều hơnnnnnnnnnnnnnn 🥰",
     isRevealed: false
   },
@@ -25,7 +25,7 @@ const giftList = ref([
     id: 3,
     title: "Tương lai rực rỡ",
     color: "#eab308", 
-    img: "public/hinh3.jpg",
+    img: "/hinh3.jpg",
     content: "Chúc em công việc, học tập hanh thông thuận lợi.\nMọi điều đến với em đều như em mong muốn ạaaaaa 🌟",
     isRevealed: false
   }
