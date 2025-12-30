@@ -50,7 +50,7 @@ const handleFile = (event) => {
 }
 .title {
   color: #ff4d4d; font-family: 'Mountains of Christmas', cursive;
-  font-size: 2.2rem; margin-bottom: 30px;
+  font-size: 1.8rem; margin-bottom: 30px;
 }
 .btn-play {
   background: #22c55e; color: white; border: none;
