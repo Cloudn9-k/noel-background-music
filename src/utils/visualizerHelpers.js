@@ -1,7 +1,5 @@
-// src/utils/visualizerHelpers.js
 import * as THREE from 'three';
 
-// --- CÁC HÀM TOÁN HỌC BỔ TRỢ ---
 const { PI, sin, cos } = Math;
 const TAU = 2 * PI;
 
@@ -11,20 +9,12 @@ const randInt = (max, min = 0) => Math.floor(min + Math.random() * (max - min));
 const randChoise = (arr) => arr[randInt(arr.length)];
 const polar = (ang, r = 1) => [r * cos(ang), r * sin(ang)];
 
-// --- LOGIC MOBILE FRIENDLY ---
-// Kiểm tra xem màn hình có nhỏ hơn 768px (iPad/Điện thoại) không
 const isMobile = window.innerWidth < 768;
-
-// Hàm tính toán số lượng hạt dựa trên thiết bị
-// Nếu là Mobile: Giảm số hạt xuống còn 1/3
-// Nếu là PC: Giữ nguyên
 const getPointCount = (totalPoints) => {
     return isMobile ? Math.floor(totalPoints / 3) : totalPoints;
 };
 
-// --- 1. HÀM TẠO CÂY THÔNG (Visualizer) ---
 export const addTree = (scene, uniforms, totalPoints, treePosition) => {
-    // Tự động giảm số hạt nếu là mobile để mượt hơn
     const actualPoints = getPointCount(totalPoints);
 
     const vertexShader = `
@@ -98,8 +88,6 @@ export const addTree = (scene, uniforms, totalPoints, treePosition) => {
         positions.push(x + rand(-0.3 * modifier, 0.3 * modifier));
         positions.push(y + rand(-0.3 * modifier, 0.3 * modifier));
         positions.push(z + rand(-0.3 * modifier, 0.3 * modifier));
-
-        // Lưu ý: map theo actualPoints để dải màu vẫn đẹp dù ít hạt hơn
         color.setHSL(map(i, 0, actualPoints, 1.0, 0.0), 1.0, 0.5);
         colors.push(color.r, color.g, color.b);
         
@@ -115,7 +103,6 @@ export const addTree = (scene, uniforms, totalPoints, treePosition) => {
     scene.add(tree);
 };
 
-// --- 2. HÀM TẠO TUYẾT RƠI ---
 export const addSnow = (scene, uniforms) => {
     const vertexShader = `
       attribute float size;
@@ -164,7 +151,6 @@ export const addSnow = (scene, uniforms) => {
     ];
 
     sprites.forEach(sprite => {
-        // Mobile chỉ cần 100 bông mỗi loại (PC là 300)
         const totalPoints = isMobile ? 100 : 300;
 
         const shaderMaterial = new THREE.ShaderMaterial({
@@ -209,9 +195,7 @@ export const addSnow = (scene, uniforms) => {
     });
 };
 
-// --- 3. HÀM TẠO NỀN ĐẤT (CÁC ĐỐM SÁNG DƯỚI ĐẤT) ---
 export const addPlane = (scene, uniforms, totalPoints) => {
-    // Giảm số hạt nền cho mobile
     const actualPoints = getPointCount(totalPoints);
 
     const vertexShader = `

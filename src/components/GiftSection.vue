@@ -13,7 +13,7 @@ const positions = ref([]);
 onMounted(() => {
     positions.value = props.gifts.map((_, index) => {
         const randomLeft = Math.random() * 60 + 20;
-        const delay = index * 4; 
+        const delay = index * 5; 
         const swayDuration = Math.random() * 2 + 3; 
 
         return {
@@ -51,17 +51,7 @@ const handleItemClick = (gift) => {
                 <div class="click-area"></div>
             </div>
         </div>
-
-        <div 
-            v-else 
-            class="gift-box"
-            :style="{ backgroundColor: gift.color }"
-        >
-            <div class="ribbon-v"></div>
-            <div class="ribbon-h"></div>
-            <div class="lid"></div>
         </div>
-    </div>
   </div>
 </template>
 
@@ -73,16 +63,15 @@ const handleItemClick = (gift) => {
 
 .gift-wrapper {
     position: absolute;
-    bottom: 15%;
+    bottom: 15%; 
     pointer-events: auto;
     transform: translateY(-120vh); 
     opacity: 0;
+    transition: opacity 0.5s ease;
 }
-
 .gift-layer.visible .gift-wrapper {
-    animation: softFall 5s ease-out forwards;
+    animation: softFall 6s ease-out forwards;
 }
-
 .sway-container {
     animation: sway 3s ease-in-out infinite alternate;
 }
@@ -103,7 +92,7 @@ const handleItemClick = (gift) => {
 }
 
 .light-beam .glow {
-    width: 45px; height: 45px;
+    width: 50px; height: 50px;
     background: radial-gradient(circle, rgba(255,215,0,0.6) 0%, rgba(255,165,0,0) 70%);
     border-radius: 50%;
 }
@@ -114,17 +103,6 @@ const handleItemClick = (gift) => {
     background: transparent;
     z-index: 10;
 }
-
-.gift-box {
-    width: 50px; height: 50px;
-    position: relative; cursor: default;
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-}
-.ribbon-v { position: absolute; width: 8px; height: 100%; background: #fff; left: 50%; transform: translateX(-50%); }
-.ribbon-h { position: absolute; width: 100%; height: 8px; background: #fff; top: 50%; transform: translateY(-50%); }
-.lid { position: absolute; width: 110%; height: 12px; background: rgba(255,255,255,0.3); top: 0; left: -5%; }
-
 @keyframes softFall {
     0% { transform: translateY(-120vh); opacity: 0; }
     10% { opacity: 1; }
@@ -132,20 +110,22 @@ const handleItemClick = (gift) => {
 }
 
 @keyframes sway {
-    0% { transform: translateX(-20px); }
-    100% { transform: translateX(20px); }
+    0% { transform: translateX(-25px); }
+    100% { transform: translateX(25px); }
 }
 
 @keyframes pulse {
     0% { transform: scale(1); filter: brightness(1); }
-    50% { transform: scale(1.1); filter: brightness(1.2); }
+    50% { transform: scale(1.1); filter: brightness(1.3); }
     100% { transform: scale(1); filter: brightness(1); }
 }
-
-@keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
 @media (max-width: 768px) {
     .gift-wrapper { bottom: 25%; }
     .click-area { width: 100px; height: 100px; }
+    @keyframes sway {
+        0% { transform: translateX(-15px); }
+        100% { transform: translateX(15px); }
+    }
 }
 </style>

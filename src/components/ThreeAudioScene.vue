@@ -4,25 +4,23 @@ import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-import { addTree, addSnow, addPlane } from '../utils/visualizerHelpers.js'; // Import logic
-import MusicPlayer from './MusicPlayer.vue'; // Import UI
+import { addTree, addSnow, addPlane } from '../utils/visualizerHelpers.js'; 
+import MusicPlayer from './MusicPlayer.vue';
 
 const emit = defineEmits(['scene-ready']);
 const containerRef = ref(null);
 const isPlaying = ref(false);
 const isLoading = ref(false);
 
-// Biến Three.js
 let scene, camera, renderer, composer, analyser, audio;
 let uniforms = { time: { value: 0 }, step: { value: 0 }, tAudioData: { value: null } };
 let animationId;
 
-// Cấu hình
 const fftSize = 2048;
-const defaultSongUrl = '/music/last-christmas.mp3'; // File bạn tải về
+const defaultSongUrl = '/music/last-christmas.mp3';
 
 const initScene = () => {
-  // 1. Setup cơ bản
+
   scene = new THREE.Scene();
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(window.devicePixelRatio);
@@ -32,24 +30,19 @@ const initScene = () => {
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
   camera.position.set(-0.09, -2.55, 24.42);
   camera.rotation.set(0.1, -0.003, 0.0004);
-
-  // 2. Audio Texture
   const format = renderer.capabilities.isWebGL2 ? THREE.RedFormat : THREE.LuminanceFormat;
   uniforms.tAudioData.value = new THREE.DataTexture(analyser.data, fftSize / 2, 1, format);
-
-  // 3. Gọi hàm tạo hình từ file helpers
   addPlane(scene, uniforms, 3000);
   addSnow(scene, uniforms);
   
-  // Hàng cây nền
   Array.from({ length: 10 }).forEach((_, i) => {
     addTree(scene, uniforms, 4000, [20, 0, -20 * i]);
     addTree(scene, uniforms, 4000, [-20, 0, -20 * i]);
   });
-  // Cây chính
+ 
   addTree(scene, uniforms, 5000, [0, 0, -5]); 
 
-  // Post-processing (Bloom)
+  
   const renderScene = new RenderPass(scene, camera);
   const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
   bloomPass.threshold = -1; bloomPass.strength = -1; bloomPass.radius = 0.5;
@@ -72,7 +65,6 @@ const animate = () => {
   animationId = requestAnimationFrame(animate);
 };
 
-// Xử lý Play nhạc
 const handlePlayDefault = () => {
     isLoading.value = true;
     const loader = new THREE.AudioLoader();
@@ -105,7 +97,6 @@ const setupAudio = (buffer) => {
     isLoading.value = false;
     isPlaying.value = true;
     
-    // Khởi tạo visualizer nếu chưa có
     if (!scene) initScene();
 };
 

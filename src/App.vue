@@ -4,31 +4,29 @@ import ThreeAudioScene from './components/ThreeAudioScene.vue';
 import GiftSection from './components/GiftSection.vue';
 import LetterModal from './components/LetterModal.vue';
 
-// --- DATA ---
-// Thêm thuộc tính isRevealed: false vào mỗi món quà
 const giftList = ref([
   {
     id: 1,
-    title: "Gửi người yêu của anh",
+    title: "Lời xin lỗi đáng iu",
     color: "#ef4444",
-    img: "https://i.pinimg.com/564x/15/0f/73/150f73f55fb8caae94017601b0d2d34a.jpg",
-    content: "Giáng sinh đầu tiên mình bên nhau. \nCảm ơn em đã xuất hiện trong cuộc đời anh.",
-    isRevealed: false // Chưa hiện hộp quà (đang là tia sáng)
+    img: "public/anh1.jpg", 
+    content: "Anh yêu em nhất trên đời!\nHộp quà đầu tiên là lời xin lỗi muốn gửi tới em vì ko đưa em kịp vào ngày Giáng Sinh.\nMong rằng em sẽ nhận lời xin lũi đáng iu của anh ạaaa ❤️",
+    isRevealed: false
   },
   {
     id: 2,
-    title: "Kỷ niệm đáng nhớ",
-    color: "#22c55e",
-    img: "https://i.pinimg.com/564x/66/4f/93/664f933db6055d28991a1315e12dc26d.jpg",
-    content: "Nhớ cái hôm mình đi dạo dưới mưa không?\nLúc đó lạnh nhưng có em nên ấm lắm.",
+    title: "Giáng Sinh & Năm Mới",
+    color: "#22c55e", 
+    img: "public/anh2.jpg", 
+    content: "Giáng Sinh này, cùng với năm mới,\nchúc em thật nhiều sức khoẻ, thật nhiều may mắn, và đón nhận tình iu của anh nhiều hơnnnnnnnnnnnnnn 🥰",
     isRevealed: false
   },
   {
     id: 3,
-    title: "Mãi bên nhau nhé",
-    color: "#eab308",
-    img: "https://i.pinimg.com/564x/85/3d/03/853d03157e3f8430ea45145b41bd8319.jpg",
-    content: "Năm sau, năm sau nữa,\nchúng mình vẫn sẽ cùng đón Noel nhé.\nAnh yêu em <3",
+    title: "Tương lai rực rỡ",
+    color: "#eab308", 
+    img: "public/anh3.jpg",
+    content: "Chúc em công việc, học tập hanh thông thuận lợi.\nMọi điều đến với em đều như em mong muốn ạaaaaa 🌟",
     isRevealed: false
   }
 ]);
@@ -37,12 +35,10 @@ const areGiftsVisible = ref(false);
 const isModalOpen = ref(false);
 const currentLetter = ref(null);
 
-// Khi Scene 3D đã sẵn sàng
 const handleSceneReady = () => {
-    // Đợi 2.5s để nhạc vào nhịp rồi mới thả tia sáng xuống
     setTimeout(() => {
         areGiftsVisible.value = true;
-    }, 2500);
+    }, 1000);
 };
 
 const handleOpenGift = (gift) => {
@@ -50,15 +46,11 @@ const handleOpenGift = (gift) => {
   isModalOpen.value = true;
 };
 
-// KHI ĐÓNG MODAL -> BIẾN TIA SÁNG THÀNH HỘP QUÀ
 const handleCloseModal = () => {
   isModalOpen.value = false;
   if (currentLetter.value) {
-    // Tìm món quà vừa mở và đánh dấu là đã lộ diện
     const gift = giftList.value.find(g => g.id === currentLetter.value.id);
-    if (gift) {
-        gift.isRevealed = true;
-    }
+    if (gift) gift.isRevealed = true;
     currentLetter.value = null;
   }
 };
